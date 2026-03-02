@@ -44,7 +44,7 @@ const Navbar = () => {
         <nav className="w-full px-6 py-4 bg-white/80 backdrop-blur-md border-b border-gray-100 font-[-apple-system,BlinkMacSystemFont,sans-serif] sticky top-0 z-50">
             <div className="max-w-7xl mx-auto flex justify-between items-center">
 
-                {/* Logo */}
+                {/* Logo Section */}
                 <Link to="/" className="flex items-center gap-2.5 group">
                     <div className="w-9 h-9 bg-[#4d7c6f] rounded-xl flex items-center justify-center shadow-lg shadow-[#4d7c6f]/20 group-hover:scale-105 transition-transform">
                         <Leaf size={18} className="text-white" />
@@ -52,22 +52,21 @@ const Navbar = () => {
                     <span className="font-bold text-xl text-gray-900 tracking-tight">Note<span className="text-[#4d7c6f]">Leaf</span></span>
                 </Link>
 
-                {/* Actions */}
+                {/* Navigation Actions */}
                 <div className="flex items-center gap-4">
                     {user ? (
-                        <div className="flex items-center gap-3">
-                            {/* NEW: Explicit Logout Button in place of Login */}
-                            <motion.button
-                                whileHover={{ scale: 1.02 }}
-                                whileTap={{ scale: 0.98 }}
+                        /* LOGGED IN VIEW */
+                        <div className="flex items-center gap-4">
+                            {/* Logout button positioned exactly where 'Login' was */}
+                            <button
                                 onClick={logoutHandler}
-                                className="flex items-center gap-2 px-4 py-2 rounded-2xl text-sm font-bold text-gray-500 hover:text-red-500 hover:bg-red-50 transition-all"
+                                className="flex items-center gap-2 px-4 py-2 text-sm font-bold text-gray-500 hover:text-red-500 transition-colors"
                             >
                                 <LogOut size={16} />
-                                <span className="hidden sm:inline">Logout</span>
-                            </motion.button>
+                                Logout
+                            </button>
 
-                            {/* User Profile Dropdown */}
+                            {/* User Avatar & Dropdown */}
                             <div className="relative" ref={dropdownRef}>
                                 <motion.button
                                     whileTap={{ scale: 0.95 }}
@@ -105,7 +104,7 @@ const Navbar = () => {
                             </div>
                         </div>
                     ) : (
-                        /* Login and Signup when logged out */
+                        /* LOGGED OUT VIEW */
                         <div className="flex items-center gap-2">
                             <Link to="/login" className="px-4 py-2 text-sm font-bold text-gray-500 hover:text-gray-900 transition-colors">
                                 Login
