@@ -24,7 +24,6 @@ const Hero = () => {
 
     const headers = { Authorization: `Bearer ${accessToken}` }
 
-    // Fetch notes
     useEffect(() => {
         const fetchNotes = async () => {
             try {
@@ -106,26 +105,29 @@ const Hero = () => {
 
             <div className="relative z-10 max-w-5xl mx-auto px-6 py-12">
 
-                {/* Header */}
-                <div className="flex items-center justify-between mb-12">
-                    <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 bg-[#4d7c6f] rounded-xl flex items-center justify-center">
-                            <Leaf size={16} className="text-white" />
+                {/* Refined Header */}
+                <div className="flex items-center justify-between mb-16">
+                    <div className="flex items-center gap-2.5">
+                        <div className="w-9 h-9 bg-[#4d7c6f] rounded-xl flex items-center justify-center shadow-lg shadow-[#4d7c6f]/20">
+                            <Leaf size={18} className="text-white" />
                         </div>
-                        <span className="font-bold text-xl text-gray-900">Note<span className="text-[#4d7c6f]">Leaf</span></span>
+                        <span className="font-bold text-2xl text-gray-900 tracking-tight">Note<span className="text-[#4d7c6f]">Leaf</span></span>
                     </div>
-                    <div className="flex items-center gap-4">
+
+                    <div className="flex items-center gap-6">
                         {user && (
-                            <span className="text-sm font-medium text-gray-500 hidden sm:block">
-                                Hey, <span className="text-gray-900 font-bold">{user.fullName}</span> 👋
-                            </span>
+                            <div className="hidden sm:block text-right leading-tight">
+                                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Logged in as</p>
+                                <p className="text-sm font-bold text-gray-900">{user.fullName}</p>
+                            </div>
                         )}
                         <motion.button
-                            whileTap={{ scale: 0.95 }}
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
                             onClick={handleLogout}
-                            className="flex items-center gap-2 px-4 py-2 rounded-2xl text-sm font-bold text-red-500 bg-red-50 hover:bg-red-100 transition-colors"
+                            className="flex items-center gap-2 px-5 py-2.5 rounded-2xl text-sm font-bold text-gray-500 hover:text-red-500 hover:bg-red-50 transition-all duration-200"
                         >
-                            <LogOut size={15} /> Logout
+                            <LogOut size={16} /> <span>Logout</span>
                         </motion.button>
                     </div>
                 </div>
@@ -133,16 +135,16 @@ const Hero = () => {
                 {/* Title + Add button */}
                 <div className="flex items-center justify-between mb-8">
                     <div>
-                        <h1 className="text-3xl font-bold text-gray-900 tracking-tight">My Notes</h1>
-                        <p className="text-gray-400 mt-1 text-sm">{notes.length} note{notes.length !== 1 ? 's' : ''}</p>
+                        <h1 className="text-4xl font-bold text-gray-900 tracking-tight">My Notes</h1>
+                        <p className="text-gray-400 mt-1.5 text-sm font-medium">{notes.length} saved note{notes.length !== 1 ? 's' : ''}</p>
                     </div>
                     <motion.button
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.97 }}
                         onClick={openCreate}
-                        className="bg-[#4d7c6f] text-white px-5 py-3 rounded-2xl font-bold text-sm shadow-xl shadow-[#4d7c6f]/20 flex items-center gap-2"
+                        className="bg-[#4d7c6f] text-white px-6 py-3.5 rounded-2xl font-bold text-sm shadow-xl shadow-[#4d7c6f]/20 flex items-center gap-2"
                     >
-                        <Plus size={18} /> New Note
+                        <Plus size={20} /> New Note
                     </motion.button>
                 </div>
 
@@ -166,7 +168,7 @@ const Hero = () => {
                 ) : (
                     <motion.div
                         layout
-                        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+                        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
                     >
                         <AnimatePresence>
                             {notes.map((note) => (
@@ -177,7 +179,7 @@ const Hero = () => {
                                     animate={{ opacity: 1, scale: 1 }}
                                     exit={{ opacity: 0, scale: 0.95 }}
                                     transition={{ ...iosSpring }}
-                                    className="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow group"
+                                    className="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all group"
                                 >
                                     <div className="flex items-start justify-between gap-2 mb-3">
                                         <h3 className="font-bold text-gray-900 text-lg leading-tight">{note.title}</h3>
@@ -203,7 +205,7 @@ const Hero = () => {
                                     {note.description && (
                                         <p className="text-gray-500 text-sm leading-relaxed line-clamp-3">{note.description}</p>
                                     )}
-                                    <p className="text-xs text-gray-300 mt-4">
+                                    <p className="text-[11px] font-bold text-gray-300 mt-5 uppercase tracking-wider">
                                         {new Date(note.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                                     </p>
                                 </motion.div>
@@ -222,7 +224,7 @@ const Hero = () => {
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             onClick={() => setShowModal(false)}
-                            className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40"
+                            className="fixed inset-0 bg-black/10 backdrop-blur-sm z-40"
                         />
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -231,43 +233,43 @@ const Hero = () => {
                             transition={{ ...iosSpring }}
                             className="fixed z-50 inset-0 flex items-center justify-center px-4"
                         >
-                            <div className="bg-white rounded-3xl shadow-2xl w-full max-w-md p-8">
+                            <div className="bg-white rounded-4xl shadow-2xl w-full max-w-md p-8">
                                 <div className="flex items-center justify-between mb-6">
-                                    <h2 className="text-xl font-bold text-gray-900">
+                                    <h2 className="text-2xl font-bold text-gray-900 tracking-tight">
                                         {editNote ? "Edit Note" : "New Note"}
                                     </h2>
-                                    <button onClick={() => setShowModal(false)} className="text-gray-400 hover:text-gray-600">
+                                    <button onClick={() => setShowModal(false)} className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 text-gray-400 transition-colors">
                                         <X size={20} />
                                     </button>
                                 </div>
 
-                                <div className="space-y-4">
+                                <div className="space-y-5">
                                     <div className="space-y-1.5">
-                                        <label className="text-[13px] font-bold text-gray-400 uppercase tracking-wider ml-1">Title</label>
+                                        <label className="text-[11px] font-bold text-gray-400 uppercase tracking-widest ml-1">Title</label>
                                         <input
                                             type="text"
                                             value={form.title}
                                             onChange={e => setForm(p => ({ ...p, title: e.target.value }))}
-                                            placeholder="Note title..."
-                                            className="w-full bg-[#f5f5f7] border-2 border-transparent px-5 py-4 rounded-2xl focus:bg-white focus:border-[#4d7c6f] transition-all outline-none text-[16px]"
+                                            placeholder="What's on your mind?"
+                                            className="w-full bg-gray-50 border-2 border-transparent px-5 py-4 rounded-2xl focus:bg-white focus:border-[#4d7c6f] transition-all outline-none text-[16px] placeholder:text-gray-300"
                                         />
                                     </div>
                                     <div className="space-y-1.5">
-                                        <label className="text-[13px] font-bold text-gray-400 uppercase tracking-wider ml-1">Description</label>
+                                        <label className="text-[11px] font-bold text-gray-400 uppercase tracking-widest ml-1">Description</label>
                                         <textarea
                                             value={form.description}
                                             onChange={e => setForm(p => ({ ...p, description: e.target.value }))}
-                                            placeholder="Write your note..."
-                                            rows={4}
-                                            className="w-full bg-[#f5f5f7] border-2 border-transparent px-5 py-4 rounded-2xl focus:bg-white focus:border-[#4d7c6f] transition-all outline-none text-[16px] resize-none"
+                                            placeholder="Add some details..."
+                                            rows={5}
+                                            className="w-full bg-gray-50 border-2 border-transparent px-5 py-4 rounded-2xl focus:bg-white focus:border-[#4d7c6f] transition-all outline-none text-[16px] resize-none placeholder:text-gray-300"
                                         />
                                     </div>
                                 </div>
 
-                                <div className="flex gap-3 mt-6">
+                                <div className="flex gap-3 mt-8">
                                     <button
                                         onClick={() => setShowModal(false)}
-                                        className="flex-1 py-3 rounded-2xl font-bold text-gray-500 bg-gray-100 hover:bg-gray-200 transition-colors"
+                                        className="flex-1 py-4 rounded-2xl font-bold text-gray-500 bg-gray-100 hover:bg-gray-200 transition-colors"
                                     >
                                         Cancel
                                     </button>
@@ -276,7 +278,7 @@ const Hero = () => {
                                         whileTap={{ scale: 0.98 }}
                                         onClick={handleSave}
                                         disabled={saving}
-                                        className="flex-1 py-3 rounded-2xl font-bold text-white bg-[#4d7c6f] shadow-lg shadow-[#4d7c6f]/20 flex items-center justify-center gap-2 disabled:opacity-50"
+                                        className="flex-1 py-4 rounded-2xl font-bold text-white bg-[#4d7c6f] shadow-lg shadow-[#4d7c6f]/20 flex items-center justify-center gap-2 disabled:opacity-50"
                                     >
                                         {saving ? <Loader2 size={18} className="animate-spin" /> : <><Check size={18} /> {editNote ? "Save" : "Create"}</>}
                                     </motion.button>
