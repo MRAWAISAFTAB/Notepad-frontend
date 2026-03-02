@@ -37,20 +37,21 @@ const Navbar = () => {
             }
         } catch (error) {
             console.log(error)
+            toast.error("Logout failed")
         }
     }
 
     return (
-        <nav className="w-full px-6 py-4 bg-white/80 backdrop-blur-md border-b border-gray-100 font-[-apple-system,BlinkMacSystemFont,sans-serif]">
+        <nav className="w-full px-6 py-4 bg-white/80 backdrop-blur-md border-b border-gray-100 font-[-apple-system,BlinkMacSystemFont,sans-serif] sticky top-0 z-50">
             <div className="max-w-7xl mx-auto flex justify-between items-center">
 
                 {/* Logo */}
-                <div className="flex items-center gap-2">
+                <Link to="/" className="flex items-center gap-2">
                     <div className="w-8 h-8 bg-[#4d7c6f] rounded-xl flex items-center justify-center">
                         <Leaf size={16} className="text-white" />
                     </div>
                     <span className="font-bold text-xl text-gray-900">Note<span className="text-[#4d7c6f]">Leaf</span></span>
-                </div>
+                </Link>
 
                 {/* Nav Links + Actions */}
                 <div className="flex items-center gap-8">
@@ -66,12 +67,12 @@ const Navbar = () => {
                             <motion.button
                                 whileTap={{ scale: 0.95 }}
                                 onClick={() => setOpen(!open)}
-                                className="flex items-center gap-2 cursor-pointer"
+                                className="flex items-center gap-2 cursor-pointer outline-none"
                             >
                                 <div className="w-9 h-9 rounded-full bg-[#4d7c6f] border-2 border-[#4d7c6f]/30 flex items-center justify-center text-white font-bold text-sm">
                                     {user?.username?.[0]?.toUpperCase() || 'U'}
                                 </div>
-                                <ChevronDown size={14} className={`text-gray-400 transition-transform ${open ? 'rotate-180' : ''}`} />
+                                <ChevronDown size={14} className={`text-gray-400 transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
                             </motion.button>
 
                             {/* Dropdown */}
@@ -82,9 +83,12 @@ const Navbar = () => {
                                         animate={{ opacity: 1, y: 0, scale: 1 }}
                                         exit={{ opacity: 0, y: -8, scale: 0.95 }}
                                         transition={{ duration: 0.15 }}
-                                        className="absolute right-0 mt-2 w-48 bg-white rounded-2xl shadow-xl border border-gray-100 p-1 z-50"
+                                        className="absolute right-0 mt-3 w-48 bg-white rounded-2xl shadow-xl border border-gray-100 p-1 z-50"
                                     >
-                                        <p className="text-gray-400 text-xs font-bold uppercase tracking-wider px-3 py-2">My Account</p>
+                                        <div className="px-3 py-2">
+                                            <p className="text-gray-400 text-[10px] font-bold uppercase tracking-widest">My Account</p>
+                                            <p className="text-gray-900 text-xs font-semibold truncate">{user?.fullName || user?.username}</p>
+                                        </div>
                                         <hr className="border-gray-100 mb-1" />
                                         <button className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-sm text-gray-700 hover:bg-gray-50 transition-colors">
                                             <User size={15} /> Profile
@@ -95,7 +99,7 @@ const Navbar = () => {
                                         <hr className="border-gray-100 my-1" />
                                         <button
                                             onClick={logoutHandler}
-                                            className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-sm text-red-500 hover:bg-red-50 transition-colors"
+                                            className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-sm text-red-500 hover:bg-red-50 transition-colors font-medium"
                                         >
                                             <LogOut size={15} /> Logout
                                         </button>
@@ -104,14 +108,27 @@ const Navbar = () => {
                             </AnimatePresence>
                         </div>
                     ) : (
-                        <motion.div whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.98 }}>
-                            <Link
-                                to="/login"
-                                className="bg-[#4d7c6f] text-white px-5 py-2.5 rounded-2xl font-bold text-sm shadow-lg shadow-[#4d7c6f]/20 hover:bg-[#3d6b5e] transition-colors"
-                            >
-                                Login
-                            </Link>
-                        </motion.div>
+                        <div className="flex items-center gap-2">
+                            {/* Login Link */}
+                            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                                <Link
+                                    to="/login"
+                                    className="px-4 py-2 text-sm font-bold text-gray-500 hover:text-gray-900 transition-colors"
+                                >
+                                    Login
+                                </Link>
+                            </motion.div>
+
+                            {/* Sign Up Button */}
+                            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                                <Link
+                                    to="/signup"
+                                    className="bg-[#4d7c6f] text-white px-5 py-2.5 rounded-2xl font-bold text-sm shadow-lg shadow-[#4d7c6f]/20 hover:bg-[#3d6b5e] transition-all"
+                                >
+                                    Sign Up
+                                </Link>
+                            </motion.div>
+                        </div>
                     )}
                 </div>
             </div>
