@@ -27,7 +27,7 @@ const Signup = () => {
         console.log(formData)
         try {
             setIsLoading(true)
-            const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/signup`, formData, {
+            const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}api/signup`, formData, {
                 headers: { "Content-Type": "application/json" }
                 
             })
