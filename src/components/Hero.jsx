@@ -84,18 +84,6 @@ const Hero = () => {
         }
     }
 
-    const handleLogout = async () => {
-        try {
-            await axios.post(`${API}api/logout`, {}, { headers })
-            setUser(null)
-            localStorage.clear()
-            toast.success("Logged out")
-            navigate('/login')
-        } catch (error) {
-            toast.error("Logout failed")
-        }
-    }
-
     return (
         <div className="relative w-full min-h-screen bg-[#fbfbfd] font-[-apple-system,BlinkMacSystemFont,sans-serif] overflow-hidden">
 
@@ -103,46 +91,24 @@ const Hero = () => {
             <div className="absolute top-[-10%] left-[-10%] w-125 h-125 bg-[#4d7c6f] rounded-full blur-[140px] opacity-10 pointer-events-none" />
             <div className="absolute bottom-[-10%] right-[-10%] w-100 h-100 bg-[#4d7c6f] rounded-full blur-[120px] opacity-10 pointer-events-none" />
 
-            <div className="relative z-10 max-w-5xl mx-auto px-6 py-12">
+            <div className="relative z-10 max-w-5xl mx-auto px-6 py-12 lg:py-20">
 
-                {/* Refined Header */}
-                <div className="flex items-center justify-between mb-16">
-                    <div className="flex items-center gap-2.5">
-                        <div className="w-9 h-9 bg-[#4d7c6f] rounded-xl flex items-center justify-center shadow-lg shadow-[#4d7c6f]/20">
-                            <Leaf size={18} className="text-white" />
-                        </div>
-                        <span className="font-bold text-2xl text-gray-900 tracking-tight">Note<span className="text-[#4d7c6f]">Leaf</span></span>
-                    </div>
-
-                    <div className="flex items-center gap-6">
-                        {user && (
-                            <div className="hidden sm:block text-right leading-tight">
-                                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Logged in as</p>
-                                <p className="text-sm font-bold text-gray-900">{user.fullName}</p>
-                            </div>
-                        )}
-                        <motion.button
-                            whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 0.98 }}
-                            onClick={handleLogout}
-                            className="flex items-center gap-2 px-5 py-2.5 rounded-2xl text-sm font-bold text-gray-500 hover:text-red-500 hover:bg-red-50 transition-all duration-200"
-                        >
-                            <LogOut size={16} /> <span>Logout</span>
-                        </motion.button>
-                    </div>
-                </div>
-
-                {/* Title + Add button */}
-                <div className="flex items-center justify-between mb-8">
+                {/* Main Content Title + Add Button */}
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-12">
                     <div>
-                        <h1 className="text-4xl font-bold text-gray-900 tracking-tight">My Notes</h1>
-                        <p className="text-gray-400 mt-1.5 text-sm font-medium">{notes.length} saved note{notes.length !== 1 ? 's' : ''}</p>
+                        <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight">
+                            My Notes
+                        </h1>
+                        <p className="text-gray-400 mt-2 text-sm font-medium">
+                            Manage your thoughts and ideas. You have {notes.length} note{notes.length !== 1 ? 's' : ''}.
+                        </p>
                     </div>
+                    
                     <motion.button
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.97 }}
                         onClick={openCreate}
-                        className="bg-[#4d7c6f] text-white px-6 py-3.5 rounded-2xl font-bold text-sm shadow-xl shadow-[#4d7c6f]/20 flex items-center gap-2"
+                        className="bg-[#4d7c6f] text-white px-7 py-4 rounded-2xl font-bold text-sm shadow-xl shadow-[#4d7c6f]/20 flex items-center justify-center gap-2"
                     >
                         <Plus size={20} /> New Note
                     </motion.button>
@@ -157,18 +123,18 @@ const Hero = () => {
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="text-center py-24"
+                        className="text-center py-24 bg-white/40 backdrop-blur-sm rounded-[40px] border border-dashed border-gray-200"
                     >
                         <div className="w-16 h-16 bg-[#4d7c6f]/10 rounded-3xl flex items-center justify-center mx-auto mb-4">
                             <Leaf size={28} className="text-[#4d7c6f]" />
                         </div>
                         <h2 className="text-xl font-bold text-gray-700">No notes yet</h2>
-                        <p className="text-gray-400 mt-1 text-sm">Click "New Note" to get started</p>
+                        <p className="text-gray-400 mt-1 text-sm">Create your first note to see it here</p>
                     </motion.div>
                 ) : (
                     <motion.div
                         layout
-                        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
+                        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
                     >
                         <AnimatePresence>
                             {notes.map((note) => (
@@ -179,10 +145,12 @@ const Hero = () => {
                                     animate={{ opacity: 1, scale: 1 }}
                                     exit={{ opacity: 0, scale: 0.95 }}
                                     transition={{ ...iosSpring }}
-                                    className="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all group"
+                                    className="bg-white rounded-4xl p-7 shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all group relative"
                                 >
-                                    <div className="flex items-start justify-between gap-2 mb-3">
-                                        <h3 className="font-bold text-gray-900 text-lg leading-tight">{note.title}</h3>
+                                    <div className="flex items-start justify-between gap-2 mb-4">
+                                        <h3 className="font-bold text-gray-900 text-lg leading-tight group-hover:text-[#4d7c6f] transition-colors">
+                                            {note.title}
+                                        </h3>
                                         <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                                             <button
                                                 onClick={() => openEdit(note)}
@@ -203,11 +171,16 @@ const Hero = () => {
                                         </div>
                                     </div>
                                     {note.description && (
-                                        <p className="text-gray-500 text-sm leading-relaxed line-clamp-3">{note.description}</p>
+                                        <p className="text-gray-500 text-sm leading-relaxed line-clamp-4">
+                                            {note.description}
+                                        </p>
                                     )}
-                                    <p className="text-[11px] font-bold text-gray-300 mt-5 uppercase tracking-wider">
-                                        {new Date(note.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
-                                    </p>
+                                    <div className="mt-6 flex items-center justify-between">
+                                        <span className="text-[11px] font-bold text-gray-300 uppercase tracking-widest">
+                                            {new Date(note.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                                        </span>
+                                        <div className="w-1.5 h-1.5 rounded-full bg-[#4d7c6f]/20" />
+                                    </div>
                                 </motion.div>
                             ))}
                         </AnimatePresence>
@@ -215,7 +188,7 @@ const Hero = () => {
                 )}
             </div>
 
-            {/* Modal */}
+            {/* Modal Logic Remains the Same... */}
             <AnimatePresence>
                 {showModal && (
                     <>
