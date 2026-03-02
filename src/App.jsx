@@ -14,9 +14,27 @@ import AuthSuccess from './Pages/AuthSuccess'
 
 const router = createBrowserRouter([
   {
+    path: '/',
+    element: (
+      <ProtectedRoute>
+        <>
+          <Navbar />
+          <Home />
+        </>
+      </ProtectedRoute>
+    )
+  },
+  {
     path: '/Home',
-    element: <ProtectedRoute><><Navbar /><Home /></></ProtectedRoute>
-},
+    element: (
+      <ProtectedRoute>
+        <>
+          <Navbar />
+          <Home />
+        </>
+      </ProtectedRoute>
+    )
+  },
   {
     path:'/signup',
     element:<Signup/>
@@ -49,7 +67,6 @@ const router = createBrowserRouter([
     path:'/change-password/:email',
     element:<ChangePassword/>
   },
-  
 ])
 
 const App = () => {
