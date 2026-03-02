@@ -24,6 +24,25 @@ const Hero = () => {
 
     const headers = { Authorization: `Bearer ${accessToken}` }
 
+    // --- ADDED LOGOUT FUNCTIONALITY ---
+    const logoutHandler = async () => {
+        try {
+            // Using your backend logout route
+            const res = await axios.post(`http://localhost:8000/user/logout`, {}, {
+                headers: { Authorization: `Bearer ${accessToken}` }
+            })
+            if (res.data.success) {
+                setUser(null)
+                toast.success(res.data.message)
+                localStorage.clear()
+                navigate('/login')
+            }
+        } catch (error) {
+            console.log(error)
+            toast.error("Logout failed")
+        }
+    }
+
     useEffect(() => {
         const fetchNotes = async () => {
             try {
@@ -92,6 +111,28 @@ const Hero = () => {
             <div className="absolute bottom-[-10%] right-[-10%] w-100 h-100 bg-[#4d7c6f] rounded-full blur-[120px] opacity-10 pointer-events-none" />
 
             <div className="relative z-10 max-w-5xl mx-auto px-6 py-12 lg:py-20">
+
+                {/* THE EXCHANGED HEADER SECTION */}
+                <div className="flex items-center justify-between mb-12">
+                    <div className="flex items-center gap-2">
+                        <div className="w-8 h-8 bg-[#4d7c6f] rounded-xl flex items-center justify-center">
+                            <Leaf size={16} className="text-white" />
+                        </div>
+                        <span className="font-bold text-xl text-gray-900">
+                            Note<span className="text-[#4d7c6f]">Leaf</span>
+                        </span>
+                    </div>
+
+                    <div className="flex items-center gap-4">
+                        {/* Swapped Login for this Logout Button */}
+                        <button 
+                            onClick={logoutHandler}
+                            className="flex items-center gap-2 px-4 py-2 rounded-2xl text-sm font-bold text-red-500 bg-red-50 hover:bg-red-100 transition-colors"
+                        >
+                            <LogOut size={15} /> Logout
+                        </button>
+                    </div>
+                </div>
 
                 {/* Main Content Title + Add Button */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-12">
@@ -188,7 +229,7 @@ const Hero = () => {
                 )}
             </div>
 
-            {/* Modal Logic Remains the Same... */}
+            {/* Modal Logic */}
             <AnimatePresence>
                 {showModal && (
                     <>
