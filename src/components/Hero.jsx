@@ -1,7 +1,7 @@
 import { ArrowRight, Zap, Leaf } from 'lucide-react'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { getData } from '../context/userContext'
+import { getData } from '../../context/userContext'
 import { motion } from 'framer-motion'
 
 const iosSpring = { type: "spring", stiffness: 300, damping: 30 }

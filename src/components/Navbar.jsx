@@ -1,7 +1,7 @@
 import { Leaf, LogOut, User, BookOpen, ChevronDown } from 'lucide-react'
 import React, { useState, useRef, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { getData } from '../context/userContext'
+import { getData } from '../../context/userContext'
 import axios from 'axios'
 import { toast } from 'sonner'
 import { motion, AnimatePresence } from 'framer-motion'

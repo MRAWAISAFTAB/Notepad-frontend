@@ -1,4 +1,4 @@
-import { getData } from '../context/userContext'
+import { getData } from '../../context/userContext'
 import axios from 'axios'
 import { Leaf, Loader2 } from 'lucide-react'
 import React, { useEffect } from 'react'
