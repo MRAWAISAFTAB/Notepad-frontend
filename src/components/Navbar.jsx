@@ -25,7 +25,6 @@ const Navbar = () => {
 
     const logoutHandler = async () => {
         try {
-            // Using the endpoint from your original navbar code
             const res = await axios.post(`http://localhost:8000/user/logout`, {}, {
                 headers: { Authorization: `Bearer ${accessToken}` }
             })
@@ -56,49 +55,57 @@ const Navbar = () => {
                 {/* Actions */}
                 <div className="flex items-center gap-4">
                     {user ? (
-                        <div className="relative" ref={dropdownRef}>
+                        <div className="flex items-center gap-3">
+                            {/* NEW: Explicit Logout Button in place of Login */}
                             <motion.button
-                                whileTap={{ scale: 0.95 }}
-                                onClick={() => setOpen(!open)}
-                                className="flex items-center gap-2 cursor-pointer outline-none"
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.98 }}
+                                onClick={logoutHandler}
+                                className="flex items-center gap-2 px-4 py-2 rounded-2xl text-sm font-bold text-gray-500 hover:text-red-500 hover:bg-red-50 transition-all"
                             >
-                                <div className="w-9 h-9 rounded-full bg-[#4d7c6f] border-2 border-[#4d7c6f]/10 flex items-center justify-center text-white font-bold text-sm shadow-sm">
-                                    {user?.username?.[0]?.toUpperCase() || 'U'}
-                                </div>
-                                <ChevronDown size={14} className={`text-gray-400 transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
+                                <LogOut size={16} />
+                                <span className="hidden sm:inline">Logout</span>
                             </motion.button>
 
-                            <AnimatePresence>
-                                {open && (
-                                    <motion.div
-                                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                                        className="absolute right-0 mt-3 w-52 bg-white rounded-2xl shadow-2xl border border-gray-100 p-1.5 z-50"
-                                    >
-                                        <div className="px-3 py-2">
-                                            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Account</p>
-                                            <p className="text-sm font-bold text-gray-900 truncate">{user.fullName}</p>
-                                        </div>
-                                        <hr className="border-gray-50 my-1" />
-                                        <button className="w-full flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm text-gray-600 hover:bg-gray-50 transition-colors">
-                                            <User size={15} /> Profile
-                                        </button>
-                                        <button className="w-full flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm text-gray-600 hover:bg-gray-50 transition-colors">
-                                            <BookOpen size={15} /> My Notes
-                                        </button>
-                                        <hr className="border-gray-50 my-1" />
-                                        <button
-                                            onClick={logoutHandler}
-                                            className="w-full flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm text-red-500 hover:bg-red-50 transition-colors font-medium"
+                            {/* User Profile Dropdown */}
+                            <div className="relative" ref={dropdownRef}>
+                                <motion.button
+                                    whileTap={{ scale: 0.95 }}
+                                    onClick={() => setOpen(!open)}
+                                    className="flex items-center gap-2 cursor-pointer outline-none"
+                                >
+                                    <div className="w-9 h-9 rounded-full bg-[#4d7c6f] border-2 border-[#4d7c6f]/10 flex items-center justify-center text-white font-bold text-sm shadow-sm">
+                                        {user?.username?.[0]?.toUpperCase() || 'U'}
+                                    </div>
+                                    <ChevronDown size={14} className={`text-gray-400 transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
+                                </motion.button>
+
+                                <AnimatePresence>
+                                    {open && (
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                                            exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                                            className="absolute right-0 mt-3 w-52 bg-white rounded-2xl shadow-2xl border border-gray-100 p-1.5 z-50"
                                         >
-                                            <LogOut size={15} /> Logout
-                                        </button>
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
+                                            <div className="px-3 py-2">
+                                                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Account</p>
+                                                <p className="text-sm font-bold text-gray-900 truncate">{user.fullName}</p>
+                                            </div>
+                                            <hr className="border-gray-50 my-1" />
+                                            <button className="w-full flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm text-gray-600 hover:bg-gray-50 transition-colors">
+                                                <User size={15} /> Profile
+                                            </button>
+                                            <button className="w-full flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm text-gray-600 hover:bg-gray-50 transition-colors">
+                                                <BookOpen size={15} /> My Notes
+                                            </button>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </div>
                         </div>
                     ) : (
+                        /* Login and Signup when logged out */
                         <div className="flex items-center gap-2">
                             <Link to="/login" className="px-4 py-2 text-sm font-bold text-gray-500 hover:text-gray-900 transition-colors">
                                 Login
