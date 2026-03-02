@@ -36,7 +36,7 @@ const VerifyOTP = () => {
     try {
       setIsLoading(true)
       setError("")
-      const res = await axios.post(`http://localhost:8000/api/verify-otp/${email}`, { otp: finalOtp })
+      const res = await axios.post(`${process.env.VITE_BACKEND_URL}/api/verify-otp/${email}`, { otp: finalOtp })
       setSuccessMessage(res.data.message)
       setIsVerified(true)
       setTimeout(() => navigate(`/change-password/${email}`), 2000)

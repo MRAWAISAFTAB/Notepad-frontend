@@ -35,7 +35,7 @@ const Login = () => {
         e.preventDefault()
         try {
             setIsLoading(true)
-            const res = await axios.post('http://localhost:8000/api/login', formData, {
+            const res = await axios.post('${process.env.VITE_BACKEND_URL}/api/login', formData, {
                 headers: { 'Content-Type': 'application/json' }
             })
             if (res.data.message) {

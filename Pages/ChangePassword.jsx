@@ -24,7 +24,7 @@ const ChangePassword = () => {
         if (newPassword !== confirmPassword) { setError("Passwords do not match"); return }
         try {
             setIsLoading(true)
-            const res = await axios.post(`http://localhost:8000/api/change-password/${email}`, { newPassword, confirmPassword })
+            const res = await axios.post(`${process.env.VITE_BACKEND_URL}/api/change-password/${email}`, { newPassword, confirmPassword })
             setSuccess(res.data.message)
             setTimeout(() => navigate('/login'), 2000)
         } catch (error) {

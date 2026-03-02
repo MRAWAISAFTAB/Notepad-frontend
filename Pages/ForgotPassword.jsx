@@ -19,7 +19,7 @@ const ForgotPassword = () => {
         try {
             setIsLoading(true)
             setError("")
-            const res = await axios.post(`http://localhost:8000/api/forgot-password`, { email })
+            const res = await axios.post(`${process.env.VITE_BACKEND_URL}/api/forgot-password`, { email })
             if (res.data.message) {
                 navigate(`/verify-otp/${email}`)
                 toast.success(res.data.message)

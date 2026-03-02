@@ -18,7 +18,7 @@ const AuthSuccess = () => {
             if (accessToken) {
                 localStorage.setItem("accessToken", accessToken)
                 try {
-                    const res = await axios.get("http://localhost:8000/auth/me", {
+                    const res = await axios.get(`${process.env.VITE_BACKEND_URL}/api/auth/me`, {
                         headers: { Authorization: `Bearer ${accessToken}` }
                     })
                     if (res.data.success) {
