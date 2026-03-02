@@ -1,16 +1,16 @@
 import React from 'react'
 import {createBrowserRouter, RouterProvider} from "react-router-dom"
-import Home from './../components/Hero'
-import Signup from '../Pages/Signup'
-import Login from '../Pages/Login'
-import VerifyEmail from '../Pages/VerifyEmail'
-import Verify from '../Pages/Verify'
-import Navbar from '../components/Navbar'
-import ProtectedRoute from '../components/ProtectedRoute'
-import ForgotPassword from '../Pages/ForgotPassword'
-import VerifyOTP from '../Pages/VerifyOtp'
-import ChangePassword from '../Pages/ChangePassword'
-import AuthSuccess from '../Pages/AuthSuccess'
+import Home from './components/Hero'
+import Signup from './Pages/Signup'
+import Login from './Pages/Login'
+import VerifyEmail from './Pages/VerifyEmail'
+import Verify from './Pages/Verify'
+import Navbar from './components/Navbar'
+import ProtectedRoute from './components/ProtectedRoute'
+import ForgotPassword from './Pages/ForgotPassword'
+import VerifyOTP from './Pages/VerifyOtp'
+import ChangePassword from './Pages/ChangePassword'
+import AuthSuccess from './Pages/AuthSuccess'
 
 const router = createBrowserRouter([
   {

@@ -4,7 +4,7 @@ import { Eye, EyeOff, Loader2, ArrowRight, Leaf, ShieldCheck, Sparkles } from 'l
 import { toast } from 'sonner'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import { getData } from '../context/userContext'
+import { getData } from '../../context/userContext'
 
 // Design Constants
 const accent = '#4d7c6f'
