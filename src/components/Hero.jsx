@@ -28,7 +28,7 @@ const Hero = () => {
     useEffect(() => {
         const fetchNotes = async () => {
             try {
-                const res = await axios.get(`${API}/api/notes`, { headers })
+                const res = await axios.get(`${API}api/notes`, { headers })
                 setNotes(res.data.notes)
             } catch (error) {
                 toast.error("Failed to load notes")
@@ -56,11 +56,11 @@ const Hero = () => {
         try {
             setSaving(true)
             if (editNote) {
-                const res = await axios.put(`${API}/api/notes/${editNote._id}`, form, { headers })
+                const res = await axios.put(`${API}api/notes/${editNote._id}`, form, { headers })
                 setNotes(prev => prev.map(n => n._id === editNote._id ? res.data.note : n))
                 toast.success("Note updated")
             } else {
-                const res = await axios.post(`${API}/api/notes`, form, { headers })
+                const res = await axios.post(`${API}api/notes`, form, { headers })
                 setNotes(prev => [res.data.note, ...prev])
                 toast.success("Note created")
             }
@@ -75,7 +75,7 @@ const Hero = () => {
     const handleDelete = async (id) => {
         try {
             setDeletingId(id)
-            await axios.delete(`${API}/api/notes/${id}`, { headers })
+            await axios.delete(`${API}api/notes/${id}`, { headers })
             setNotes(prev => prev.filter(n => n._id !== id))
             toast.success("Note deleted")
         } catch (error) {
@@ -87,7 +87,7 @@ const Hero = () => {
 
     const handleLogout = async () => {
         try {
-            await axios.post(`${API}/api/logout`, {}, { headers })
+            await axios.post(`${API}api/logout`, {}, { headers })
             setUser(null)
             localStorage.clear()
             toast.success("Logged out")
